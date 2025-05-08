@@ -99,6 +99,30 @@ for section in data['sections']:
             story.append(chart_img)
         elif (chart['type'] == 'grid') :
             helpers.drawGrids(chart, chartIndex, story)
+        elif (chart['type'] == 'bar') :
+            bar_chart_path = helpers.drawBarChart(chart, chartIndex, story)
+
+            img = PILImage.open(bar_chart_path)
+            img_width_px, img_height_px = img.size
+
+            # Max width and height for the frame
+            max_width_pt = doc.width
+            max_height_pt = doc.height
+
+            # Original size in points assuming 300 dpi
+            img_width_pt = img_width_px * 72 / 300
+            img_height_pt = img_height_px * 72 / 300
+
+            # Scale to fit page — always allow downsizing
+            width_ratio = max_width_pt / img_width_pt
+            height_ratio = max_height_pt / img_height_pt
+            scale = min(width_ratio, height_ratio) * 0.82
+
+            img_width_pt *= scale
+            img_height_pt *= scale
+
+            chart_img = RLImage(bar_chart_path, width=img_width_pt, height=img_height_pt)
+            story.append(chart_img)
 
 
 
