@@ -3,7 +3,8 @@ from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.graphics.shapes import Drawing, Rect, Line
-from reportlab.lib.enums import TA_CENTER,TA_LEFT
+from reportlab.graphics.shapes import Path
+from reportlab.lib.enums import TA_CENTER,TA_LEFT, TA_RIGHT
 from testrandom import create_rotated_text_image
 
 # ---- Styles ----
@@ -25,391 +26,420 @@ heading.alignment = TA_LEFT
 heading.textColor = "WHITE"
 heading.fontName = "Helvetica-BoldOblique"
 
+mainHeading = styles['Normal'].clone('small_style')
+mainHeading.fontSize = 16
+mainHeading.leading = 18
+mainHeading.alignment = TA_LEFT
+mainHeading.textColor =  colors.Color(55/255, 90/255, 140/255)
+mainHeading.fontName = "Helvetica-BoldOblique"
+
+assessment = styles['Normal'].clone('small_style')
+assessment.fontSize = 10
+assessment.leading = 10
+assessment.alignment = TA_RIGHT
+assessment.textColor =  colors.Color(55/255, 90/255, 140/255)
+assessment.fontName = "Helvetica-BoldOblique"
+
 # ---- JSON ----
 data = {
+    "header": {
+        "text": [
+            "Motivational/Personal Factors",
+            "Assessment"
+        ]
+    }, 
+    "footer": {
+        "text": [
+            "Low agreement"
+        ]
+    },
+    "text": [
+        "Excelling as a leader requires not only core abilities or competencies, but also the desire to take on typical leadership duties and responsibilities. Listed below are a number of motivational and personal factors that, along with ability, are essential to understanding leadership potential. Each factor is measured by several items that focus on specific behaviors or attitudes. Your overall rating, along with ratings for each specific behavior or attitude related to each factor, is provided below. The \"All Raters\" category includes all ratings with the exception of your self scores.",
+        "An \"*\" indicates only Self ratings were collected for that item. Additionally, the wording of some items in the assessment varies depending on the rater source. For example, the item \"Really cares about the success of the agency\" appeared as \"I really care about the success of my agency\" on the version of the assessment you, the participant, responded to, while the same item appeared as \"He or she really cares about the success of his or her agency\" for all other raters."
+    ],
     "charts": [
+        {
+            "type": "grid",
+            "cols": 7,
+            "rows": [
                 {
-                    "type": "grid",
-                    "cols": 7,
-                    "rows": [
+                    "colspan": 7,
+                    "cols": [
                         {
-                            "colspan": 7,
-                            "cols": [
-                                {
-                                    "text": "Organizational Engagement"
-                                }
+                            "text": "Organizational Engagement"
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "text": "Displays enthusiasm and excitement about the agency’s work. Exerts effort beyond what is expected spends extra time working to help achieve organizational goals. Demonstrates pride in working for the agency and is supportive of the organization as a whole."
+                        },
+                        {
+                            "type": "bar",
+                            "text": "Self",
+                            "min": 1.0,
+                            "max": 5.0,
+                            "data": [
+                                1.1
                             ]
                         },
                         {
-                            "cols": [
-                                {
-                                    "text": "Displays enthusiasm and excitement about the agency’s work. Exerts effort beyond what is expected spends extra time working to help achieve organizational goals. Demonstrates pride in working for the agency and is supportive of the organization as a whole."
-                                },
-                                {
-                                    "type": "bar",
-                                    "text": "Self",
-                                    "min": 1.0,
-                                    "max": 5.0,
-                                    "data": [
-                                        4.3
-                                    ]
-                                },
-                                {
-                                    "type": "bar",
-                                    "text": "Sup.",
-                                    "min": 1.0,
-                                    "max": 5.0,
-                                    "data": [
-                                        4.6
-                                    ]
-                                },
-                                {
-                                    "type": "bar",
-                                    "text": "Peers",
-                                    "min": 1.0,
-                                    "max": 5.0,
-                                    "data": [
-                                        4.8
-                                    ]
-                                },
-                                {
-                                    "type": "bar",
-                                    "text": "Dir. Rpts.",
-                                    "min": 1.0,
-                                    "max": 5.0,
-                                    "data": [
-                                    ]
-                                },
-                                {
-                                    "type": "bar",
-                                    "text": "Others",
-                                    "min": 1.0,
-                                    "max": 5.0,
-                                    "data": [
-                                        5.0
-                                    ]
-                                },
-                                {
-                                    "type": "bar",
-                                    "text": "All Raters",
-                                    "min": 1.0,
-                                    "max": 5.0,
-                                    "data": [
-                                        4.8
-                                    ]
-                                }
+                            "type": "bar",
+                            "text": "Sup.",
+                            "min": 1.0,
+                            "max": 5.0,
+                            "data": [
+                                4.6
                             ]
                         },
                         {
-                            "cols": [
-                                {
-                                    "text": "Your Score"
-                                },
-                                {
-                                    "text": "4.3"
-                                },
-                                {
-                                    "text": "4.6"
-                                },
-                                {
-                                    "text": "4.8"
-                                },
-                                {
-                                    "text": "--"
-                                },
-                                {
-                                    "text": "5.0"
-                                },
-                                {
-                                    "text": "4.8"
-                                }
+                            "type": "bar",
+                            "text": "Peers",
+                            "min": 1.0,
+                            "max": 5.0,
+                            "data": [
+                                4.8
                             ]
                         },
                         {
-                            "cols": [
-                                {
-                                    "text": "Group Average"
-                                },
-                                {
-                                    "text": "4.0"
-                                },
-                                {
-                                    "text": "4.5"
-                                },
-                                {
-                                    "text": "4.6"
-                                },
-                                {
-                                    "text": "4.7"
-                                },
-                                {
-                                    "text": "4.6"
-                                },
-                                {
-                                    "text": "4.6"
-                                }
+                            "type": "bar",
+                            "text": "Dir. Rpts.",
+                            "min": 1.0,
+                            "max": 5.0,
+                            "data": [
                             ]
                         },
                         {
-                            "cols": [
-                                {
-                                    "text": "Org. Benchmark"
-                                },
-                                {
-                                    "text": "4.1"
-                                },
-                                {
-                                    "text": "4.4"
-                                },
-                                {
-                                    "text": "4.3"
-                                },
-                                {
-                                    "text": "4.4"
-                                },
-                                {
-                                    "text": "4.5"
-                                },
-                                {
-                                    "text": "4.4"
-                                }
+                            "type": "bar",
+                            "text": "Others",
+                            "min": 1.0,
+                            "max": 5.0,
+                            "data": [
+                                5.0
+                            ]
+                        },
+                        {
+                            "type": "bar",
+                            "text": "All Raters",
+                            "min": 1.0,
+                            "max": 5.0,
+                            "data": [
+                                4.8
                             ]
                         }
                     ]
                 },
                 {
-                    "type": "grid",
-                    "cols": 8,
-                    "rows": [
+                    "cols": [
                         {
-                            "cols": [
-                                {
-                                    "text": "Factor Items",
-                                    "rowspan": "*"
-                                },
-                                {
-                                    "text": "1. Volunteers for work when opportunities arise."
-                                },
-                                {
-                                    "text": "4.0"
-                                },
-                                {
-                                    "text": "4.5"
-                                },
-                                {
-                                    "text": "4.6"
-                                },
-                                {
-                                    "text": "--"
-                                },
-                                {
-                                    "text": "5.0"
-                                },
-                                {
-                                    "text": "4.7"
-                                }
-                            ]
+                            "text": "Your Score"
                         },
                         {
-                            "cols": [
-                                {
-                                    "text": ""
-                                    
-                                },
-                                {
-                                    "text": "2. Gets excited thinking or talking about what they can accomplish at work."
-                                },
-                                {
-                                    "text": "5.0"
-                                },
-                                {
-                                    "text": "5.0"
-                                },
-                                {
-                                    "text": "4.7"
-                                },
-                                {
-                                    "text": "--"
-                                },
-                                {
-                                    "text": "5.0"
-                                },
-                                {
-                                    "text": "4.9"
-                                }
-                            ]
+                            "text": "4.3"
                         },
                         {
-                            "cols": [
-                                {
-                                    "text": ""
-                                },
-                                {
-                                    "text": "3. Puts in a great deal of effort to make sure the work is done."
-                                },
-                                {
-                                    "text": "4.0"
-                                },
-                                {
-                                    "text": "4.5"
-                                },
-                                {
-                                    "text": "4.9"
-                                },
-                                {
-                                    "text": "--"
-                                },
-                                {
-                                    "text": "5.0"
-                                },
-                                {
-                                    "text": "4.9"
-                                }
-                            ]
+                            "text": "4.6"
                         },
                         {
-                            "cols": [
-                                {
-                                    "text": ""
-                                },
-                                {
-                                    "text": "4. I am excited about going to work each day.*"
-                                },
-                                {
-                                    "text": "4.0"
-                                },
-                                {
-                                    "text": "4.5"
-                                },
-                                {
-                                    "text": "4.9"
-                                },
-                                {
-                                    "text": "--"
-                                },
-                                {
-                                    "text": "5.0"
-                                },
-                                {
-                                    "text": "4.9"
-                                }
-                            ]
+                            "text": "4.8"
                         },
                         {
-                            "cols": [
-                                {
-                                    "text": ""
-                                },
-                                {
-                                    "text": "5. Is passionate about their work."
-                                },
-                                {
-                                    "text": "5.0"
-                                },
-                                {
-                                    "text": "4.5"
-                                },
-                                {
-                                    "text": "4.9"
-                                },
-                                {
-                                    "text": "--"
-                                },
-                                {
-                                    "text": "5.0"
-                                },
-                                {
-                                    "text": "4.9"
-                                }
-                            ]
+                            "text": "--"
                         },
                         {
-                            "cols": [
-                                {
-                                    "text": ""
-                                },
-                                {
-                                    "text": "6. Speaks highly of the organization."
-                                },
-                                {
-                                    "text": "4.0"
-                                },
-                                {
-                                    "text": "4.5"
-                                },
-                                {
-                                    "text": "5.0"
-                                },
-                                {
-                                    "text": "--"
-                                },
-                                {
-                                    "text": "5.0"
-                                },
-                                {
-                                    "text": "4.9"
-                                }
-                            ]
+                            "text": "5.0"
                         },
                         {
-                            "cols": [
-                                {
-                                    "text": ""
-                                },
-                                {
-                                    "text": "7. Is proud to work for their agency."
-                                },
-                                {
-                                    "text": "4.0"
-                                },
-                                {
-                                    "text": "4.5"
-                                },
-                                {
-                                    "text": "4.9"
-                                },
-                                {
-                                    "text": "--"
-                                },
-                                {
-                                    "text": "5.0"
-                                },
-                                {
-                                    "text": "4.9"
-                                }
-                            ]
+                            "text": "4.8"
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "text": "Group Average"
                         },
                         {
-                            "cols": [
-                                {
-                                    "text": ""
-                                },
-                                {
-                                    "text": "8. Is willing to put in a great deal of effort beyond what is expected to help the agency be successful."
-                                },
-                                {
-                                    "text": "4.0"
-                                },
-                                {
-                                    "text": "4.5"
-                                },
-                                {
-                                    "text": "4.6"
-                                },
-                                {
-                                    "text": "--"
-                                },
-                                {
-                                    "text": "5.0"
-                                },
-                                {
-                                    "text": "4.7"
-                                }
-                            ]
+                            "text": "4.0"
+                        },
+                        {
+                            "text": "4.5"
+                        },
+                        {
+                            "text": "4.6"
+                        },
+                        {
+                            "text": "4.7"
+                        },
+                        {
+                            "text": "4.6"
+                        },
+                        {
+                            "text": "4.6"
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "text": "Org. Benchmark"
+                        },
+                        {
+                            "text": "4.1"
+                        },
+                        {
+                            "text": "4.4"
+                        },
+                        {
+                            "text": "4.3"
+                        },
+                        {
+                            "text": "4.4"
+                        },
+                        {
+                            "text": "4.5"
+                        },
+                        {
+                            "text": "4.4"
                         }
                     ]
                 }
             ]
+        },
+        {
+            "type": "grid",
+            "cols": 8,
+            "rows": [
+                {
+                    "cols": [
+                        {
+                            "text": "Factor Items",
+                            "rowspan": "*"
+                        },
+                        {
+                            "text": "1. Volunteers for work when opportunities arise."
+                        },
+                        {
+                            "text": "4.0"
+                        },
+                        {
+                            "text": "4.5"
+                        },
+                        {
+                            "text": "4.6"
+                        },
+                        {
+                            "text": "--"
+                        },
+                        {
+                            "text": "5.0"
+                        },
+                        {
+                            "text": "4.7"
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "text": ""
+                            
+                        },
+                        {
+                            "text": "2. Gets excited thinking or talking about what they can accomplish at work."
+                        },
+                        {
+                            "text": "5.0"
+                        },
+                        {
+                            "text": "5.0"
+                        },
+                        {
+                            "text": "4.7"
+                        },
+                        {
+                            "text": "--"
+                        },
+                        {
+                            "text": "5.0"
+                        },
+                        {
+                            "text": "4.9"
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "text": ""
+                        },
+                        {
+                            "text": "3. Puts in a great deal of effort to make sure the work is done."
+                        },
+                        {
+                            "text": "4.0"
+                        },
+                        {
+                            "text": "4.5"
+                        },
+                        {
+                            "text": "4.9"
+                        },
+                        {
+                            "text": "--"
+                        },
+                        {
+                            "text": "5.0"
+                        },
+                        {
+                            "text": "4.9"
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "text": ""
+                        },
+                        {
+                            "text": "4. I am excited about going to work each day.*"
+                        },
+                        {
+                            "text": "4.0"
+                        },
+                        {
+                            "text": "4.5"
+                        },
+                        {
+                            "text": "4.9"
+                        },
+                        {
+                            "text": "--"
+                        },
+                        {
+                            "text": "5.0"
+                        },
+                        {
+                            "text": "4.9"
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "text": ""
+                        },
+                        {
+                            "text": "5. Is passionate about their work."
+                        },
+                        {
+                            "text": "5.0"
+                        },
+                        {
+                            "text": "4.5"
+                        },
+                        {
+                            "text": "4.9"
+                        },
+                        {
+                            "text": "--"
+                        },
+                        {
+                            "text": "5.0"
+                        },
+                        {
+                            "text": "4.9"
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "text": ""
+                        },
+                        {
+                            "text": "6. Speaks highly of the organization."
+                        },
+                        {
+                            "text": "4.0"
+                        },
+                        {
+                            "text": "4.5"
+                        },
+                        {
+                            "text": "5.0"
+                        },
+                        {
+                            "text": "--"
+                        },
+                        {
+                            "text": "5.0"
+                        },
+                        {
+                            "text": "4.9"
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "text": ""
+                        },
+                        {
+                            "text": "7. Is proud to work for their agency."
+                        },
+                        {
+                            "text": "4.0"
+                        },
+                        {
+                            "text": "4.5"
+                        },
+                        {
+                            "text": "4.9"
+                        },
+                        {
+                            "text": "--"
+                        },
+                        {
+                            "text": "5.0"
+                        },
+                        {
+                            "text": "4.9"
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "text": ""
+                        },
+                        {
+                            "text": "8. Is willing to put in a great deal of effort beyond what is expected to help the agency be successful."
+                        },
+                        {
+                            "text": "4.0"
+                        },
+                        {
+                            "text": "4.5"
+                        },
+                        {
+                            "text": "4.6"
+                        },
+                        {
+                            "text": "--"
+                        },
+                        {
+                            "text": "5.0"
+                        },
+                        {
+                            "text": "4.7"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
 }
 
 # ---- Helper: Create vertical bar drawing ----
@@ -430,7 +460,123 @@ def create_vertical_bar(value, min_value, max_value, width=30, height=100, label
     return d
 
 # ---- Build document ----
+from reportlab.lib.units import inch
+
 story = []
+
+# ---- Header row with arc drawing and titles ----
+TOTAL_WIDTH = 500
+
+arc_width = 15  # same as first table column width
+arc_height = 30
+
+arc_drawing = Drawing(arc_width, arc_height + 10)
+
+path = Path()
+path.moveTo(0, arc_height)  # vertical line starts at x=0, shifted upward by 5
+path.lineTo(0, 15)              # vertical down, shifted upward by 5
+path.curveTo(0, 0, 12, 0, 12, 0)  # bottom-right curve
+
+path.strokeColor = colors.Color(0.15, 0.25, 0.45)
+path.strokeWidth = 1.5
+
+arc_drawing.add(path)
+
+heading_inner_table = Table(
+    [[arc_drawing, Paragraph('<b><i>%s</i></b>' % data["header"]["text"][0], mainHeading)]],
+    colWidths=[arc_width, TOTAL_WIDTH * 0.7 - (arc_width)]
+)
+
+assessment_text = Paragraph('<i>%s</i>' % data["header"]["text"][1], assessment)
+
+assessment_line = Drawing(TOTAL_WIDTH * 0.5, 5)
+assessment_line.add(Line(0, 2, TOTAL_WIDTH * 0.5, 2, strokeColor=colors.Color(55/255, 90/255, 140/255), strokeWidth=1.5))
+
+assessment_inner_table = Table(
+    [
+        [assessment_text],
+        [assessment_line]
+    ],
+    colWidths=[TOTAL_WIDTH * 0.5]
+)
+assessment_inner_table.setStyle(TableStyle([
+    # ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+    # ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+    ('LEFTPADDING', (0, 0), (-1, -1), 15),
+    ('RIGHTPADDING', (0, 0), (-1, -1), 15),
+    ('TOPPADDING', (0, 0), (-1, -1), 10),
+    ('BOTTOMPADDING', (0, 0), (-1, -1), 0),
+
+    # ('BACKGROUND', (0, 0), (0,1), "YELLOW"),
+    # ('TOPPADDING', (0, 0), (0, 1), 10),
+
+
+
+    # ('BACKGROUND', (0, 1), (0, 2), "PINK"),
+    # ('VALIGN', (0, 1), (-1, -1), "TOP"),
+    # ('ALIGN', (0, 1), (-1, -1), "LEFT"),
+]))
+
+header_row = [
+    [
+        heading_inner_table,
+        assessment_inner_table
+    ]
+]
+
+header_table = Table(
+    header_row,
+    colWidths=[TOTAL_WIDTH * 0.5, TOTAL_WIDTH * 0.5]
+)
+heading_inner_table.setStyle(TableStyle([
+    ('BOTTOMPADDING', (0, 0), (0, 0), 10),
+    ('LEFTPADDING', (0, 0), (0, 0), 0),
+    ('RIGHTPADDING', (0, 0), (0, 0), 0),
+]))
+
+header_table.setStyle(TableStyle([
+    ('ALIGN', (0, 0), (0, 0), 'LEFT'),
+    ('ALIGN', (1, 0), (1, 0), 'RIGHT'),
+    ('VALIGN', (0, 0), (-1, -1), 'BOTTOM'),
+    ('BOTTOMPADDING', (0, 0), (-1, -1), 0),
+    ('TOPPADDING', (0, 0), (-1, -1), 0),
+    ('LEFTPADDING', (0, 0), (0, 0), 0),
+
+
+    # ('BACKGROUND', (1, 0), (1, 1), "PINK"),
+    # ('BACKGROUND', (0, 0), (0, 1), "PINK"),
+    ('VALIGN', (1, 0), (1, 1), 'MIDDLE'),
+    # ('LEFTPADDING', (1, 0), (1, 1), 100),
+    # ('BOTTOMMARGIN', (1, 0), (1, 1), 20),
+    # ('LEFTPADDING', (0, 0), (0, 0), 0),
+    # ('RIGHTPADDING', (0, 0), (0, 0), 20),
+    # ('ALIGN', (1, 0), (1, 1), "YELLOW"),
+]))
+story.append(header_table)
+story.append(Spacer(1, 12))
+# # ---- Divider line ----
+# line = Drawing(TOTAL_WIDTH, 1)
+# line.add(Line(0, 0, TOTAL_WIDTH, 0, strokeColor=colors.Color(55/255, 90/255, 140/255), strokeWidth=1))
+# story.append(line)
+
+# ---- Description paragraphs ----
+paragraph_rows = []
+for para_text in data["text"]:
+    para = Paragraph(para_text, leftAlign)
+    paragraph_rows.append([para])
+
+paragraph_table = Table(paragraph_rows, colWidths=[TOTAL_WIDTH])
+paragraph_table.setStyle(TableStyle([
+    ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+    ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+    ('LEFTPADDING', (0, 0), (-1, -1), 0),
+    ('RIGHTPADDING', (0, 0), (-1, -1), 0),
+    ('TOPPADDING', (0, 0), (-1, -1), 0),
+    ('BOTTOMPADDING', (0, 0), (-1, -1), 6)
+]))
+
+story.append(paragraph_table)
+story.append(Spacer(1, 12))
 
 for chartIndex, chart in enumerate(data["charts"]):
     table_data = []
@@ -583,11 +729,17 @@ for chartIndex, chart in enumerate(data["charts"]):
     story.append(table)
     if(chartIndex == 0) :
         line = Drawing(TOTAL_WIDTH, 2)
-        line.add(Line(-30, 1, TOTAL_WIDTH -30, 1, strokeColor=colors.Color(55/255, 90/255, 140/255), strokeWidth=2))
+        line.add(Line(0, 1, TOTAL_WIDTH, 1, strokeColor=colors.Color(55/255, 90/255, 140/255), strokeWidth=2))
         story.append(line)
 
 # ---- Build PDF ----
-doc = SimpleDocTemplate("combined_charts_output.pdf", pagesize=A4)
+# doc = SimpleDocTemplate("combined_charts_output.pdf", pagesize=A4)
+
+doc = SimpleDocTemplate(
+    "combined_charts_output.pdf",
+    pagesize=A4,
+    topMargin=30
+)
 doc.build(story)
 
 print("PDF created: combined_charts_output.pdf")
