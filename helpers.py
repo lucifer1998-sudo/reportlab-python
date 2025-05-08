@@ -53,7 +53,7 @@ def boxAndWhiskerChart(chart_data):
     data = chart_data['data']
     legend_labels = chart_data.get('legend', {}).get('text', ["Min", "Max", "Mean", "Middle 50%"])
 
-    chart_width_in = 7.5  # Match PDF printable width
+    chart_width_in = 14.5  # Match PDF printable width
     chart_height_in = len(data) * 0.6 + 1.5  # Extra space for legend
 
     fig, ax = plt.subplots(figsize=(chart_width_in, chart_height_in))
@@ -68,11 +68,11 @@ def boxAndWhiskerChart(chart_data):
         mean = item["mean"]
 
         ax.hlines(y, min_val, max_val, color='black', linewidth=2)
-        cap_height = 0.15
+        cap_height = 0.4
         ax.vlines(min_val, y - cap_height / 2, y + cap_height / 2, color='black', linewidth=2)
         ax.vlines(max_val, y - cap_height / 2, y + cap_height / 2, color='black', linewidth=2)
 
-        ax.barh(y, q3 - q1, left=q1, height=0.2, color='steelblue', alpha=0.7, edgecolor='none')
+        ax.barh(y, q3 - q1, left=q1, height=0.6, color='steelblue', alpha=0.7, edgecolor='none')
 
         ax.plot(mean, y, 'o',
                 markersize=10,
@@ -83,7 +83,7 @@ def boxAndWhiskerChart(chart_data):
     # Y labels
     y_positions = [(len(data) - i) * y_spacing for i in range(len(data))]
     ax.set_yticks(y_positions)
-    ax.set_yticklabels([item["competency"] for item in data], fontsize=12, weight='bold')
+    ax.set_yticklabels([item["competency"] for item in data], fontsize=18, weight='bold')
 
     # X limits and ticks
     all_mins = [item["min"] for item in data]
@@ -105,8 +105,8 @@ def boxAndWhiskerChart(chart_data):
 
     for i, item in enumerate(data):
         y = (len(data) - i) * y_spacing
-        ax.text(all_raters_x, y, f"{item['all_raters']:.1f}", va='center', ha='left', fontsize=11)
-        ax.text(benchmark_x, y, f"{item['benchmark']:.1f}", va='center', ha='left', fontsize=11)
+        ax.text(all_raters_x + 0.5, y, f"{item['all_raters']:.1f}", va='center', ha='center', fontsize=18)
+        ax.text(benchmark_x + 0.5, y, f"{item['benchmark']:.1f}", va='center', ha='center', fontsize=18)
 
 
     # Hide spines
@@ -120,13 +120,14 @@ def boxAndWhiskerChart(chart_data):
 
     ax.xaxis.set_ticks_position('top')
     ax.xaxis.set_label_position('top')
-    ax.tick_params(axis='x', length=5, width=1, direction='out')
+    ax.tick_params(axis='x', length=5, width=1, direction='out', labelsize=14)
     ax.tick_params(axis='y', length=0)
 
     # All Raters & Benchmark headers
-    header_y = max(y_positions) + y_spacing * 0.5
-    ax.text(all_raters_x, header_y, "All Raters", weight='bold', fontsize=12)
-    ax.text(benchmark_x, header_y, "Benchmark", weight='bold', fontsize=12)
+    # Align All Raters and Benchmark headers with the x-axis tick labels
+    header_y = ax.get_ylim()[1] + 0.1  # Slightly above the highest y-axis value
+    ax.text(all_raters_x + 0.5, header_y, "All Raters", fontsize=18, va='bottom', ha='center')
+    ax.text(benchmark_x + 0.5, header_y, "Benchmark", fontsize=18, va='bottom', ha='center')
 
     # --------------------------------
     # 🏷️ Add legend at the bottom
@@ -145,10 +146,10 @@ def boxAndWhiskerChart(chart_data):
     # Whisker line
     ax.hlines(legend_y, legend_min, legend_max, color='black', linewidth=2)
     # Caps
-    ax.vlines(legend_min, legend_y - 0.15, legend_y + 0.15, color='black', linewidth=2)
-    ax.vlines(legend_max, legend_y - 0.15, legend_y + 0.15, color='black', linewidth=2)
+    ax.vlines(legend_min, legend_y - 0.3, legend_y + 0.3, color='black', linewidth=2)
+    ax.vlines(legend_max, legend_y - 0.3, legend_y + 0.3, color='black', linewidth=2)
     # Box
-    ax.barh(legend_y, legend_q3 - legend_q1, left=legend_q1, height=0.2,
+    ax.barh(legend_y, legend_q3 - legend_q1, left=legend_q1, height=0.6,
             color='steelblue', alpha=0.7, edgecolor='none')
     # Mean dot
     ax.plot(legend_mean, legend_y, 'o',

@@ -6,6 +6,9 @@ from reportlab.graphics.shapes import Drawing, Line
 import helpers
 from reportlab.lib import colors
 
+from reportlab.platypus import Image as RLImage
+from PIL import Image as PILImage
+
 # Load data
 with open("data/sample.json") as f:
     data = json.load(f)
@@ -68,12 +71,32 @@ for section in data['sections']:
     for para in section['text']:
         story.append(Paragraph(para, body_style))
 
-
     for chartIndex, chart in enumerate(section['charts']) : 
         if chart['type'] == 'box_and_whisker':
             chart_path = helpers.boxAndWhiskerChart(chart)
-            story.append(Spacer(1, 20))
-            story.append(Image(chart_path, width=300, height=400))
+            
+
+            img = PILImage.open(chart_path)
+            img_width_px, img_height_px = img.size
+
+            # Max width and height for the frame
+            max_width_pt = doc.width
+            max_height_pt = doc.height
+
+            # Original size in points assuming 300 dpi
+            img_width_pt = img_width_px * 72 / 300
+            img_height_pt = img_height_px * 72 / 300
+
+            # Scale to fit page — always allow downsizing
+            width_ratio = max_width_pt / img_width_pt
+            height_ratio = max_height_pt / img_height_pt
+            scale = min(width_ratio, height_ratio) * 0.82
+
+            img_width_pt *= scale
+            img_height_pt *= scale
+
+            chart_img = RLImage(chart_path, width=img_width_pt, height=img_height_pt)
+            story.append(chart_img)
         elif (chart['type'] == 'grid') :
             helpers.drawGrids(chart, chartIndex, story)
 
