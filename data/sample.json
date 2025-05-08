@@ -1,0 +1,890 @@
+{
+    "title": "Sample Report",
+    "starting_page_number": 1,
+    "sections": [ 
+        {
+            "header": "Competency Rankings",
+            "text": [
+                "This section summarizes the competency scores of the entire group. The mean (average) indicates how a typical leader in the group scores, whereas the middle 50% indicates how far from average most leaders are. The minimum and maximum scores define the range of scores. Look for competencies with a large range or a low average score, as that may indicate a need for training."
+            ],
+            "charts": [
+                {
+                    "type": "box_and_whisker",
+                    "legend": {
+                        "text": [
+                            "Min",
+                            "Max",
+                            "Mean",
+                            "Middle 50%"
+                        ]
+                    },
+                    "headers": [
+                        {
+                            "text": "",
+                            "id": "competency"
+                        },
+                        {
+                            "text": "All Raters",
+                            "id": "all_raters"
+                        },
+                        {
+                            "text": "Benchmark",
+                            "id": "benchmark"
+                        }
+                    ],
+                    "data": [
+                        {
+                            "competency": "Service Motivation",
+                            "min": 3.3,
+                            "max": 4.9,
+                            "mean": 4.6,
+                            "middle_50": [
+                                4.3,
+                                4.7
+                            ],
+                            "all_raters": 4.6,
+                            "benchmark": 4.6
+                        },
+                        {
+                            "competency": "Leveraging Diversity",
+                            "min": 3.9,
+                            "max": 4.9,
+                            "mean": 4.6,
+                            "middle_50": [
+                                4.3,
+                                4.8
+                            ],
+                            "all_raters": 4.6,
+                            "benchmark": 4.6
+                        },
+                        {
+                            "competency": "Integrity",
+                            "min": 3.2,
+                            "max": 4.9,
+                            "mean": 4.6,
+                            "middle_50": [
+                                4.4,
+                                4.7
+                            ],
+                            "all_raters": 4.6,
+                            "benchmark": 4.6
+                        },
+                        {
+                            "competency": "Partnering",
+                            "min": 2.9,
+                            "max": 4.9,
+                            "mean": 4.5,
+                            "middle_50": [
+                                4.5,
+                                4.7
+                            ],
+                            "all_raters": 4.5,
+                            "benchmark": 4.4
+                        },
+                        {
+                            "competency": "Interpersonal Skills",
+                            "min": 3.5,
+                            "max": 4.9,
+                            "mean": 4.4,
+                            "middle_50": [
+                                4.1,
+                                4.8
+                            ],
+                            "all_raters": 4.5,
+                            "benchmark": 4.6
+                        },
+                        {
+                            "competency": "Technical",
+                            "min": 2.3,
+                            "max": 5.0,
+                            "mean": 4.4,
+                            "middle_50": [
+                                4.2,
+                                4.6
+                            ],
+                            "all_raters": 4.5,
+                            "benchmark": 4.5
+                        },
+                        {
+                            "competency": "Management Written",
+                            "min": 3.2,
+                            "max": 4.8,
+                            "mean": 4.4,
+                            "middle_50": [
+                                4.1,
+                                4.6
+                            ],
+                            "all_raters": 4.4,
+                            "benchmark": 4.4
+                        },
+                        {
+                            "competency": "Communication",
+                            "min": 3.0,
+                            "max": 4.8,
+                            "mean": 4.4,
+                            "middle_50": [
+                                4.3,
+                                4.6
+                            ],
+                            "all_raters": 4.4,
+                            "benchmark": 4.4
+                        },
+                        {
+                            "competency": "Resilience",
+                            "min": 3.5,
+                            "max": 4.8,
+                            "mean": 4.4,
+                            "middle_50": [
+                                4.4,
+                                4.7
+                            ],
+                            "all_raters": 4.4,
+                            "benchmark": 4.4
+                        },
+                        {
+                            "competency": "Human Capital",
+                            "min": 3.2,
+                            "max": 4.9,
+                            "mean": 4.4,
+                            "middle_50": [
+                                3.8,
+                                4.6
+                            ],
+                            "all_raters": 4.4,
+                            "benchmark": 4.4
+                        },
+                        {
+                            "competency": "Accountability",
+                            "min": 3.0,
+                            "max": 4.9,
+                            "mean": 4.4,
+                            "middle_50": [
+                                3.9,
+                                4.7
+                            ],
+                            "all_raters": 4.4,
+                            "benchmark": 4.4
+                        },
+                        {
+                            "competency": "Oral Communication",
+                            "min": 2.9,
+                            "max": 4.7,
+                            "mean": 4.3,
+                            "middle_50": [
+                                4.3,
+                                4.7
+                            ],
+                            "all_raters": 4.3,
+                            "benchmark": 4.4
+                        },
+                        {
+                            "competency": "Savvy",
+                            "min": 2.8,
+                            "max": 4.6,
+                            "mean": 4.3,
+                            "middle_50": [
+                                4.2,
+                                4.5
+                            ],
+                            "all_raters": 4.3,
+                            "benchmark": 4.2
+                        },
+                        {
+                            "competency": "Customer Service",
+                            "min": 3.0,
+                            "max": 4.9,
+                            "mean": 4.3,
+                            "middle_50": [
+                                4.0,
+                                4.7
+                            ],
+                            "all_raters": 4.3,
+                            "benchmark": 4.4
+                        },
+                        {
+                            "competency": "Learning",
+                            "min": 3.3,
+                            "max": 4.6,
+                            "mean": 4.3,
+                            "middle_50": [
+                                4.2,
+                                4.8
+                            ],
+                            "all_raters": 4.3,
+                            "benchmark": 4.4
+                        },
+                        {
+                            "competency": "Problem Solving",
+                            "min": 3.3,
+                            "max": 4.5,
+                            "mean": 4.3,
+                            "middle_50": [
+                                4.1,
+                                4.8
+                            ],
+                            "all_raters": 4.3,
+                            "benchmark": 4.3
+                        },
+                        {
+                            "competency": "Awareness",
+                            "min": 3.0,
+                            "max": 4.8,
+                            "mean": 4.3,
+                            "middle_50": [
+                                4.15,
+                                4.7
+                            ],
+                            "all_raters": 4.3,
+                            "benchmark": 4.3
+                        },
+                        {
+                            "competency": "Flexibility",
+                            "min": 3.5,
+                            "max": 4.7,
+                            "mean": 4.3,
+                            "middle_50": [
+                                4.05,
+                                4.6
+                            ],
+                            "all_raters": 4.3,
+                            "benchmark": 4.4
+                        },
+                        {
+                            "competency": "Financial",
+                            "min": 2.2,
+                            "max": 4.7,
+                            "mean": 4.3,
+                            "middle_50": [
+                                4.3,
+                                4.6
+                            ],
+                            "all_raters": 4.3,
+                            "benchmark": 4.3
+                        },
+                        {
+                            "competency": "Strategic",
+                            "min": 2.8,
+                            "max": 4.8,
+                            "mean": 4.3,
+                            "middle_50": [
+                                4.2,
+                                4.6
+                            ],
+                            "all_raters": 4.3,
+                            "benchmark": 4.3
+                        },
+                        {
+                            "competency": "Developing Others",
+                            "min": 2.5,
+                            "max": 4.9,
+                            "mean": 4.3,
+                            "middle_50": [
+                                4.1,
+                                4.6
+                            ],
+                            "all_raters": 4.3,
+                            "benchmark": 4.3
+                        },
+                        {
+                            "competency": "Team Building",
+                            "min": 2.45,
+                            "max": 5.0,
+                            "mean": 4.3,
+                            "middle_50": [
+                                4.1,
+                                4.55
+                            ],
+                            "all_raters": 4.3,
+                            "benchmark": 4.3
+                        },
+                        {
+                            "competency": "Creativity",
+                            "min": 2.7,
+                            "max": 5.0,
+                            "mean": 4.3,
+                            "middle_50": [
+                                4.1,
+                                4.6
+                            ],
+                            "all_raters": 4.3,
+                            "benchmark": 4.4
+                        },
+                        {
+                            "competency": "Vision",
+                            "min": 1.9,
+                            "max": 4.7,
+                            "mean": 4.2,
+                            "middle_50": [
+                                4.2,
+                                4.4
+                            ],
+                            "all_raters": 4.2,
+                            "benchmark": 4.3
+                        },
+                        {
+                            "competency": "Decisiveness",
+                            "min": 3.2,
+                            "max": 4.9,
+                            "mean": 4.2,
+                            "middle_50": [
+                                3.8,
+                                4.7
+                            ],
+                            "all_raters": 4.2,
+                            "benchmark": 4.3
+                        },
+                        {
+                            "competency": "Influencing",
+                            "min": 3.1,
+                            "max": 4.7,
+                            "mean": 4.2,
+                            "middle_50": [
+                                4.1,
+                                4.6
+                            ],
+                            "all_raters": 4.2,
+                            "benchmark": 4.2
+                        },
+                        {
+                            "competency": "Entrepreneurship",
+                            "min": 3.3,
+                            "max": 4.6,
+                            "mean": 4.2,
+                            "middle_50": [
+                                4.1,
+                                4.5
+                            ],
+                            "all_raters": 4.2,
+                            "benchmark": 4.2
+                        },
+                        {
+                            "competency": "Conflict Management",
+                            "min": 3.2,
+                            "max": 4.6,
+                            "mean": 4.0,
+                            "middle_50": [
+                                3.5,
+                                4.2
+                            ],
+                            "all_raters": 4.0,
+                            "benchmark": 4.2
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "header": {
+                "text": [
+                    "Motivational/Personal Factors",
+                    "Assessment"
+                ]
+            }, 
+            "footer": {
+                "text": [
+                    "Low agreement"
+                ]
+            },
+            "text": [
+                "Excelling as a leader requires not only core abilities or competencies, but also the desire to take on typical leadership duties and responsibilities. Listed below are a number of motivational and personal factors that, along with ability, are essential to understanding leadership potential. Each factor is measured by several items that focus on specific behaviors or attitudes. Your overall rating, along with ratings for each specific behavior or attitude related to each factor, is provided below. The \"All Raters\" category includes all ratings with the exception of your self scores.",
+                "An \"*\" indicates only Self ratings were collected for that item. Additionally, the wording of some items in the assessment varies depending on the rater source. For example, the item \"Really cares about the success of the agency\" appeared as \"I really care about the success of my agency\" on the version of the assessment you, the participant, responded to, while the same item appeared as \"He or she really cares about the success of his or her agency\" for all other raters."
+            ],
+            "charts": [
+                {
+                    "type": "grid",
+                    "cols": 7,
+                    "rows": [
+                        {
+                            "colspan": 7,
+                            "cols": [
+                                {
+                                    "text": "Organizational Engagement"
+                                }
+                            ]
+                        },
+                        {
+                            "cols": [
+                                {
+                                    "text": "Displays enthusiasm and excitement about the agency’s work. Exerts effort beyond what is expected spends extra time working to help achieve organizational goals. Demonstrates pride in working for the agency and is supportive of the organization as a whole."
+                                },
+                                {
+                                    "type": "bar",
+                                    "text": "Self",
+                                    "min": 1.0,
+                                    "max": 5.0,
+                                    "data": [
+                                        1.1
+                                    ]
+                                },
+                                {
+                                    "type": "bar",
+                                    "text": "Sup.",
+                                    "min": 1.0,
+                                    "max": 5.0,
+                                    "data": [
+                                        4.6
+                                    ]
+                                },
+                                {
+                                    "type": "bar",
+                                    "text": "Peers",
+                                    "min": 1.0,
+                                    "max": 5.0,
+                                    "data": [
+                                        4.8
+                                    ]
+                                },
+                                {
+                                    "type": "bar",
+                                    "text": "Dir. Rpts.",
+                                    "min": 1.0,
+                                    "max": 5.0,
+                                    "data": [
+                                    ]
+                                },
+                                {
+                                    "type": "bar",
+                                    "text": "Others",
+                                    "min": 1.0,
+                                    "max": 5.0,
+                                    "data": [
+                                        5.0
+                                    ]
+                                },
+                                {
+                                    "type": "bar",
+                                    "text": "All Raters",
+                                    "min": 1.0,
+                                    "max": 5.0,
+                                    "data": [
+                                        4.8
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "cols": [
+                                {
+                                    "text": "Your Score"
+                                },
+                                {
+                                    "text": "4.3"
+                                },
+                                {
+                                    "text": "4.6"
+                                },
+                                {
+                                    "text": "4.8"
+                                },
+                                {
+                                    "text": "--"
+                                },
+                                {
+                                    "text": "5.0"
+                                },
+                                {
+                                    "text": "4.8"
+                                }
+                            ]
+                        },
+                        {
+                            "cols": [
+                                {
+                                    "text": "Group Average"
+                                },
+                                {
+                                    "text": "4.0"
+                                },
+                                {
+                                    "text": "4.5"
+                                },
+                                {
+                                    "text": "4.6"
+                                },
+                                {
+                                    "text": "4.7"
+                                },
+                                {
+                                    "text": "4.6"
+                                },
+                                {
+                                    "text": "4.6"
+                                }
+                            ]
+                        },
+                        {
+                            "cols": [
+                                {
+                                    "text": "Org. Benchmark"
+                                },
+                                {
+                                    "text": "4.1"
+                                },
+                                {
+                                    "text": "4.4"
+                                },
+                                {
+                                    "text": "4.3"
+                                },
+                                {
+                                    "text": "4.4"
+                                },
+                                {
+                                    "text": "4.5"
+                                },
+                                {
+                                    "text": "4.4"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "grid",
+                    "cols": 8,
+                    "rows": [
+                        {
+                            "cols": [
+                                {
+                                    "text": "Factor Items",
+                                    "rowspan": "*"
+                                },
+                                {
+                                    "text": "1. Volunteers for work when opportunities arise."
+                                },
+                                {
+                                    "text": "4.0"
+                                },
+                                {
+                                    "text": "4.5"
+                                },
+                                {
+                                    "text": "4.6"
+                                },
+                                {
+                                    "text": "--"
+                                },
+                                {
+                                    "text": "5.0"
+                                },
+                                {
+                                    "text": "4.7"
+                                }
+                            ]
+                        },
+                        {
+                            "cols": [
+                                {
+                                    "text": ""
+                                    
+                                },
+                                {
+                                    "text": "2. Gets excited thinking or talking about what they can accomplish at work."
+                                },
+                                {
+                                    "text": "5.0"
+                                },
+                                {
+                                    "text": "5.0"
+                                },
+                                {
+                                    "text": "4.7"
+                                },
+                                {
+                                    "text": "--"
+                                },
+                                {
+                                    "text": "5.0"
+                                },
+                                {
+                                    "text": "4.9"
+                                }
+                            ]
+                        },
+                        {
+                            "cols": [
+                                {
+                                    "text": ""
+                                },
+                                {
+                                    "text": "3. Puts in a great deal of effort to make sure the work is done."
+                                },
+                                {
+                                    "text": "4.0"
+                                },
+                                {
+                                    "text": "4.5"
+                                },
+                                {
+                                    "text": "4.9"
+                                },
+                                {
+                                    "text": "--"
+                                },
+                                {
+                                    "text": "5.0"
+                                },
+                                {
+                                    "text": "4.9"
+                                }
+                            ]
+                        },
+                        {
+                            "cols": [
+                                {
+                                    "text": ""
+                                },
+                                {
+                                    "text": "4. I am excited about going to work each day.*"
+                                },
+                                {
+                                    "text": "4.0"
+                                },
+                                {
+                                    "text": "4.5"
+                                },
+                                {
+                                    "text": "4.9"
+                                },
+                                {
+                                    "text": "--"
+                                },
+                                {
+                                    "text": "5.0"
+                                },
+                                {
+                                    "text": "4.9"
+                                }
+                            ]
+                        },
+                        {
+                            "cols": [
+                                {
+                                    "text": ""
+                                },
+                                {
+                                    "text": "5. Is passionate about their work."
+                                },
+                                {
+                                    "text": "5.0"
+                                },
+                                {
+                                    "text": "4.5"
+                                },
+                                {
+                                    "text": "4.9"
+                                },
+                                {
+                                    "text": "--"
+                                },
+                                {
+                                    "text": "5.0"
+                                },
+                                {
+                                    "text": "4.9"
+                                }
+                            ]
+                        },
+                        {
+                            "cols": [
+                                {
+                                    "text": ""
+                                },
+                                {
+                                    "text": "6. Speaks highly of the organization."
+                                },
+                                {
+                                    "text": "4.0"
+                                },
+                                {
+                                    "text": "4.5"
+                                },
+                                {
+                                    "text": "5.0"
+                                },
+                                {
+                                    "text": "--"
+                                },
+                                {
+                                    "text": "5.0"
+                                },
+                                {
+                                    "text": "4.9"
+                                }
+                            ]
+                        },
+                        {
+                            "cols": [
+                                {
+                                    "text": ""
+                                },
+                                {
+                                    "text": "7. Is proud to work for their agency."
+                                },
+                                {
+                                    "text": "4.0"
+                                },
+                                {
+                                    "text": "4.5"
+                                },
+                                {
+                                    "text": "4.9"
+                                },
+                                {
+                                    "text": "--"
+                                },
+                                {
+                                    "text": "5.0"
+                                },
+                                {
+                                    "text": "4.9"
+                                }
+                            ]
+                        },
+                        {
+                            "cols": [
+                                {
+                                    "text": ""
+                                },
+                                {
+                                    "text": "8. Is willing to put in a great deal of effort beyond what is expected to help the agency be successful."
+                                },
+                                {
+                                    "text": "4.0"
+                                },
+                                {
+                                    "text": "4.5"
+                                },
+                                {
+                                    "text": "4.6"
+                                },
+                                {
+                                    "text": "--"
+                                },
+                                {
+                                    "text": "5.0"
+                                },
+                                {
+                                    "text": "4.7"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "header": {
+                "text": [
+                    "Score Summary",
+                    "Assessment"
+                ]
+            },
+            "text": [
+                "This section presents a summary of your All Raters results for all of the competencies and motivational factors assessed by the LPA. You can compare yourself to the group average to see how you were rated relative to the other people who took the LPA in your organization at your same leadership level. Note: \"Desire for Career Advancement\" is not included in the rankings below because only self-ratings were collected for this motivational factor."
+            ],
+            "charts": [
+                {
+                    "type": "bar",
+                    "headers": [
+                        {
+                            "text": "",
+                            "id": "competency"
+                        },
+                        {
+                            "text": "Average of All Raters",
+                            "id": "all_raters"
+                        },
+                        {
+                            "text": "Benchmark",
+                            "id": "benchmark"
+                        }
+                    ],
+                    "legend": {
+                        "text": [
+                            "Competencies",
+                            "Motivational/Personal",
+                            "Benchmark"
+                        ]
+                    },
+                    "data": [
+                        {
+                            "competency": "Integrity",
+                            "score": 4.8,
+                            "benchmark": 4.4
+                        },
+                        {
+                            "competency": "Problem Solving",
+                            "score": 4.5,
+                            "benchmark": 4.2
+                        },
+                        {
+                            "competency": "Interpersonal Skills",
+                            "score": 4.2,
+                            "benchmark": 4.3
+                        },
+                        {
+                            "competency": "Flexibility",
+                            "score": 4.2,
+                            "benchmark": 4.3
+                        },
+                        {
+                            "competency": "Customer Service",
+                            "score": 4.2,
+                            "benchmark": 4.3
+                        },
+                        {
+                            "competency": "Accountability",
+                            "score": 4.3,
+                            "benchmark": 4.3
+                        },
+                        {
+                            "competency": "Oral Communication",
+                            "score": 4.3,
+                            "benchmark": 4.3
+                        },
+                        {
+                            "competency": "Resilience",
+                            "score": 4.3,
+                            "benchmark": 4.3
+                        },
+                        {
+                            "competency": "Decisiveness",
+                            "score": 4.0,
+                            "benchmark": 4.2
+                        },
+                        {
+                            "competency": "Written Communication",
+                            "score": 4.2,
+                            "benchmark": 4.2
+                        },
+                        {
+                            "competency": "Organizational Engagement",
+                            "barColor": "lightblue",
+                            "score": 4.2,
+                            "benchmark": 4.3
+                        },
+                        {
+                            "competency": "Proactive Personality",
+                            "barColor": "lightblue",
+                            "score": 3.9,
+                            "benchmark": 4.2
+                        },
+                        {
+                            "competency": "Leadership Confidence",
+                            "barColor": "lightblue",
+                            "score": 4.8,
+                            "benchmark": 4.4
+                        },
+                        {
+                            "competency": "Motivation to Lead",
+                            "barColor": "lightblue",
+                            "score": 4.5,
+                            "benchmark": 4.2
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
