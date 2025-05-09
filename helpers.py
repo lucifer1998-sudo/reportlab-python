@@ -1,3 +1,4 @@
+import os
 import uuid
 import textwrap
 import numpy as np
@@ -562,3 +563,7 @@ def set_pdf_metadata_factory(data):
     def set_pdf_metadata(canvas, doc):
         canvas.setTitle(data['title'])
     return set_pdf_metadata
+
+def cleanup() :
+    os.remove('reports/bar-chart.png')
+    os.remove('reports/chart.png')

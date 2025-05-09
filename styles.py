@@ -1,4 +1,4 @@
-from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_CENTER,TA_LEFT, TA_RIGHT
 from reportlab.lib import colors
 
@@ -33,3 +33,30 @@ assessment.leading = 10
 assessment.alignment = TA_RIGHT
 assessment.textColor =  colors.Color(55/255, 90/255, 140/255)
 assessment.fontName = "Helvetica-BoldOblique"
+
+
+title_style = ParagraphStyle(
+    'TitleStyle',
+    parent=styles['Heading1'],
+    fontName='Helvetica-Bold',
+    fontSize=22,
+    textColor=colors.Color(56/255, 56/255, 56/255),
+    spaceAfter=10
+)
+subtitle_style = ParagraphStyle(
+    'SubtitleStyle',
+    parent=styles['Normal'],
+    fontName='Helvetica-Oblique',
+    fontSize=12,
+    alignment=2,  # right-aligned
+    spaceAfter=6
+)
+body_style = ParagraphStyle(
+    'BodyStyle',
+    parent=styles['BodyText'],
+    fontName='Helvetica',
+    fontSize=9,
+    leading=14,
+    spaceAfter=10,
+    textColor=colors.Color(0/255, 45/255, 91/255)
+)

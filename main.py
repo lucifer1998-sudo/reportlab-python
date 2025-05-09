@@ -1,13 +1,10 @@
 import json
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image, PageBreak
-from reportlab.lib.pagesizes import A4
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.graphics.shapes import Drawing, Line
 import helpers
+from styles import *
 from reportlab.lib import colors
-
-from reportlab.platypus import Image as RLImage
-from PIL import Image as PILImage
+from reportlab.lib.pagesizes import A4
+from reportlab.graphics.shapes import Drawing, Line
+from reportlab.platypus import SimpleDocTemplate, Paragraph, PageBreak
 
 with open("data/sample.json") as f:
     data = json.load(f)
@@ -21,38 +18,10 @@ doc = SimpleDocTemplate(
     rightMargin=40
 )
 
-styles = getSampleStyleSheet()
-title_style = ParagraphStyle(
-    'TitleStyle',
-    parent=styles['Heading1'],
-    fontName='Helvetica-Bold',
-    fontSize=22,
-    textColor=colors.Color(56/255, 56/255, 56/255),
-    spaceAfter=10
-)
-subtitle_style = ParagraphStyle(
-    'SubtitleStyle',
-    parent=styles['Normal'],
-    fontName='Helvetica-Oblique',
-    fontSize=12,
-    alignment=2,  # right-aligned
-    spaceAfter=6
-)
-body_style = ParagraphStyle(
-    'BodyStyle',
-    parent=styles['BodyText'],
-    fontName='Helvetica',
-    fontSize=9,
-    leading=14,
-    spaceAfter=10,
-    textColor=colors.Color(0/255, 45/255, 91/255)
-)
-
 story = []
 
 for section in data['sections']:
     header = section['header']
-
     
     if isinstance(header, str):
         story.append(Paragraph(header, title_style))
@@ -63,7 +32,6 @@ for section in data['sections']:
     else:
         helpers.drawHeaderedTable(section, story)
 
-    
     for para in section['text']:
         story.append(Paragraph(para, body_style))
 
@@ -78,3 +46,4 @@ for section in data['sections']:
     story.append(PageBreak())
 
 doc.build(story, onFirstPage=helpers.set_pdf_metadata_factory(data))
+helpers.cleanup()
