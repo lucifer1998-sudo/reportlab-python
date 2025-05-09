@@ -13,6 +13,8 @@ from PIL import Image as PILImage, ImageDraw, ImageFont
 import uuid
 import textwrap
 
+from textRotation import VerticalText
+
 
 #### GLOBAL STYLE LIST START ########
 
@@ -345,11 +347,12 @@ def create_vertical_bar(value, min_value, max_value, width=30, height=100, label
     d.add(Rect(5, 0, width - 10, bar_height, fillColor=label_color, strokeColor=None))
     return d
 
-def create_rotated_text_image(text, img_width=100, img_height=40, font_size=12):
+
+def create_rotated_text_image(text, img_width=100, img_height=40, font_size=48):
     bg_color = "white"
     text_color = "black"
 
-    # Create blank image
+    # Create high-res blank image
     image = PILImage.new("RGB", (img_width, img_height), bg_color)
     draw = ImageDraw.Draw(image)
 
@@ -369,15 +372,14 @@ def create_rotated_text_image(text, img_width=100, img_height=40, font_size=12):
     # Center the text
     x = (img_width - text_width) / 2
     y = (img_height - text_height) / 2
-
     draw.text((x, y), text, fill=text_color, font=font)
 
-    # Rotate the image 90 degrees
+    # Rotate the image
     rotated_image = image.rotate(90, expand=True)
 
-    # Save to a unique filename to avoid overwriting
+    # Save to a unique file
     output_path = f"assets/rotated_{uuid.uuid4().hex[:8]}.png"
-    rotated_image.save(output_path)
+    rotated_image.save(output_path, dpi=(300, 300))
 
     return output_path
     
@@ -429,7 +431,7 @@ def drawGrids(chart, chartIndex, story) :
                     styleToUse = small_style
 
                 if cell.get('rowspan') == '*':
-                    table_row.append(Image(create_rotated_text_image(text)))
+                    table_row.append(VerticalText(text,width=60,height=60))
                 else : 
                     para = Paragraph(text, styleToUse)
                     table_row.append(para)
@@ -492,7 +494,9 @@ def drawGrids(chart, chartIndex, story) :
         ('RIGHTPADDING', (0, 0), (-1, -1), 2),
         ('TOPPADDING', (0, 0), (-1, -1), 2),
         ('BOTTOMPADDING', (0, 0), (-1, -1), 2),
-        ('BACKGROUND', (-1, 0), (-1, -1), colors.Color(238/255, 221/255, 219/255))
+        ('BACKGROUND', (-1, 0), (-1, -1), colors.Color(238/255, 221/255, 219/255)),
+        # ('BACKGROUND', (0, 0), (0, 1), "YELLOW")
+        # ('BACKGROUND', (0, 0), (0, 1), "YELLOW")
     ])
 
     for colNum in bgBlueCols :
@@ -515,7 +519,8 @@ def drawGrids(chart, chartIndex, story) :
     for col_idx, start_row in rowspan_indices:
         end_row = len(table_data) - 1
         table_style.add('SPAN', (col_idx, start_row), (col_idx, end_row))
-        table_style.add('FONTNAME', (col_idx, start_row), (col_idx, end_row), 'Helvetica-Bold')
+        table_style.add('VALIGN', (col_idx, start_row), (col_idx, end_row), 'CENTER')
+        table_style.add('ALIGN', (col_idx, start_row), (col_idx, end_row), 'RIGHT')
 
     table.setStyle(table_style)
 
