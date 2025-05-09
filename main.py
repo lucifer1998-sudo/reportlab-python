@@ -1,3 +1,4 @@
+import os
 import sys
 import json
 import helpers
@@ -55,3 +56,5 @@ for section in data['sections']:
 
 doc.build(story, onFirstPage=helpers.set_pdf_metadata_factory(data))
 helpers.cleanup()
+output_path = os.path.abspath(f"reports/{data['title']}.pdf")
+print(f"You can access the PDF report at: {output_path}")
