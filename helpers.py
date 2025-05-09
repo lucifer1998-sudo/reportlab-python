@@ -233,7 +233,7 @@ def drawHeaderAndText(section, c) :
             c.drawString(x_left, y, line)
             y -= 14
         y -= 10
- 
+
 
 def drawHeaderedTable(data, story) :
     TOTAL_WIDTH = 500
@@ -253,27 +253,37 @@ def drawHeaderedTable(data, story) :
 
     arc_drawing.add(path)
 
+    heading_text = data["header"]["text"][0]
+    text_width = stringWidth(heading_text, mainHeading.fontName, mainHeading.fontSize)
+    heading_width = arc_width + text_width + 20
+
+
+    if heading_width > TOTAL_WIDTH * 0.75:
+        heading_width = TOTAL_WIDTH * 0.75
+
+    assessment_width = TOTAL_WIDTH - heading_width
+
     heading_inner_table = Table(
-        [[arc_drawing, Paragraph('<b><i>%s</i></b>' % data["header"]["text"][0], mainHeading)]],
-        colWidths=[arc_width, TOTAL_WIDTH * 0.7 - (arc_width)]
+        [[arc_drawing, Paragraph('<b><i>%s</i></b>' % heading_text, mainHeading)]],
+        colWidths=[arc_width, heading_width - arc_width]
     )
 
     assessment_text = Paragraph('<i>%s</i>' % data["header"]["text"][1], assessment)
 
-    assessment_line = Drawing(TOTAL_WIDTH * 0.5, 5)
-    assessment_line.add(Line(0, 2, TOTAL_WIDTH * 0.5, 2, strokeColor=colors.Color(55/255, 90/255, 140/255), strokeWidth=1.5))
+    assessment_line = Drawing(assessment_width, 5)
+    assessment_line.add(Line(0, 2, assessment_width, 2, strokeColor=colors.Color(55/255, 90/255, 140/255), strokeWidth=1.5))
 
     assessment_inner_table = Table(
         [
             [assessment_text],
             [assessment_line]
         ],
-        colWidths=[TOTAL_WIDTH * 0.5]
+        colWidths=[assessment_width]
     )
     assessment_inner_table.setStyle(TableStyle([
         ('LEFTPADDING', (0, 0), (-1, -1), 15),
         ('RIGHTPADDING', (0, 0), (-1, -1), 15),
-        ('TOPPADDING', (0, 0), (-1, -1), 10),
+        ('TOPPADDING', (0, 0), (-1, -1), 12),
         ('BOTTOMPADDING', (0, 0), (-1, -1), 0),
     ]))
 
@@ -286,7 +296,7 @@ def drawHeaderedTable(data, story) :
 
     header_table = Table(
         header_row,
-        colWidths=[TOTAL_WIDTH * 0.5, TOTAL_WIDTH * 0.5]
+        colWidths=[heading_width, assessment_width]
     )
     heading_inner_table.setStyle(TableStyle([
         ('BOTTOMPADDING', (0, 0), (0, 0), 10),
