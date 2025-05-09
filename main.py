@@ -9,11 +9,9 @@ from reportlab.lib import colors
 from reportlab.platypus import Image as RLImage
 from PIL import Image as PILImage
 
-# Load data
 with open("data/sample.json") as f:
     data = json.load(f)
 
-# PDF settings
 doc = SimpleDocTemplate(
     f"reports/{data['title']}.pdf",
     pagesize=A4,
@@ -23,7 +21,6 @@ doc = SimpleDocTemplate(
     rightMargin=40
 )
 
-# Styles
 styles = getSampleStyleSheet()
 title_style = ParagraphStyle(
     'TitleStyle',
@@ -51,83 +48,33 @@ body_style = ParagraphStyle(
     textColor=colors.Color(0/255, 45/255, 91/255)
 )
 
-# Build story
 story = []
 
 for section in data['sections']:
     header = section['header']
 
-    # Header
+    
     if isinstance(header, str):
         story.append(Paragraph(header, title_style))
         page_width, page_height = A4
-        line = Drawing(page_width - doc.leftMargin - doc.rightMargin, 2)  # 2 points high
+        line = Drawing(page_width - doc.leftMargin - doc.rightMargin, 2)
         line.add(Line(0, 1, page_width - doc.leftMargin - doc.rightMargin, 1, strokeColor=colors.darkgrey, strokeWidth=3))
         story.append(line)
     else:
         helpers.drawHeaderedTable(section, story)
 
-    # Paragraphs
+    
     for para in section['text']:
         story.append(Paragraph(para, body_style))
 
     for chartIndex, chart in enumerate(section['charts']) : 
         if chart['type'] == 'box_and_whisker':
-            chart_path = helpers.boxAndWhiskerChart(chart)
-            
-
-            img = PILImage.open(chart_path)
-            img_width_px, img_height_px = img.size
-
-            # Max width and height for the frame
-            max_width_pt = doc.width
-            max_height_pt = doc.height
-
-            # Original size in points assuming 300 dpi
-            img_width_pt = img_width_px * 72 / 300
-            img_height_pt = img_height_px * 72 / 300
-
-            # Scale to fit page — always allow downsizing
-            width_ratio = max_width_pt / img_width_pt
-            height_ratio = max_height_pt / img_height_pt
-            scale = min(width_ratio, height_ratio) * 0.82
-
-            img_width_pt *= scale
-            img_height_pt *= scale
-
-            chart_img = RLImage(chart_path, width=img_width_pt, height=img_height_pt)
-            story.append(chart_img)
+            helpers.boxAndWhiskerChart(chart, doc, story)
         elif (chart['type'] == 'grid') :
             helpers.drawGrids(chart, chartIndex, story)
         elif (chart['type'] == 'bar') :
-            bar_chart_path = helpers.drawBarChart(chart, chartIndex, story)
-
-            img = PILImage.open(bar_chart_path)
-            img_width_px, img_height_px = img.size
-
-            # Max width and height for the frame
-            max_width_pt = doc.width
-            max_height_pt = doc.height
-
-            # Original size in points assuming 300 dpi
-            img_width_pt = img_width_px * 72 / 300
-            img_height_pt = img_height_px * 72 / 300
-
-            # Scale to fit page — always allow downsizing
-            width_ratio = max_width_pt / img_width_pt
-            height_ratio = max_height_pt / img_height_pt
-            scale = min(width_ratio, height_ratio) * 0.82
-
-            img_width_pt *= scale
-            img_height_pt *= scale
-
-            chart_img = RLImage(bar_chart_path, width=img_width_pt, height=img_height_pt)
-            story.append(chart_img)
-
-
+            helpers.drawBarChart(chart, doc, story)
 
     story.append(PageBreak())
 
-# Generate PDF
-# doc.build(story)
 doc.build(story, onFirstPage=helpers.set_pdf_metadata_factory(data))
