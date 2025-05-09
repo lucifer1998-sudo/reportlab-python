@@ -1,3 +1,4 @@
 reports/*
 assets/*
 *.pdf
+__pycache__
