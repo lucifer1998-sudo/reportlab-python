@@ -1,3 +1,4 @@
+import sys
 import json
 import helpers
 from styles import *
@@ -6,7 +7,14 @@ from reportlab.lib.pagesizes import A4
 from reportlab.graphics.shapes import Drawing, Line
 from reportlab.platypus import SimpleDocTemplate, Paragraph, PageBreak
 
-with open("data/sample.json") as f:
+
+if len(sys.argv) < 2:
+    print("Usage: python main.py path/to/data.json")
+    sys.exit(1)
+
+json_path = sys.argv[1]
+
+with open(json_path) as f:
     data = json.load(f)
 
 doc = SimpleDocTemplate(
