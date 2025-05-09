@@ -11,6 +11,7 @@ from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.enums import TA_CENTER,TA_LEFT, TA_RIGHT
 from PIL import Image as PILImage, ImageDraw, ImageFont
 import uuid
+import textwrap
 
 
 #### GLOBAL STYLE LIST START ########
@@ -105,8 +106,8 @@ def boxAndWhiskerChart(chart_data):
 
     for i, item in enumerate(data):
         y = (len(data) - i) * y_spacing
-        ax.text(all_raters_x + 0.5, y, f"{item['all_raters']:.1f}", va='center', ha='center', fontsize=18)
-        ax.text(benchmark_x + 0.5, y, f"{item['benchmark']:.1f}", va='center', ha='center', fontsize=18)
+        ax.text(all_raters_x + 0.5, y, f"{item['all_raters']:.1f}", va='top', ha='center', fontsize=18)
+        ax.text(benchmark_x + 0.5, y, f"{item['benchmark']:.1f}", va='top', ha='center', fontsize=18)
 
 
     # Hide spines
@@ -125,9 +126,18 @@ def boxAndWhiskerChart(chart_data):
 
     # All Raters & Benchmark headers
     # Align All Raters and Benchmark headers with the x-axis tick labels
+
+    headers = chart_data['headers']
+    text_for_benchmark = next((h["text"] for h in headers if h["id"] == "benchmark"), None)
+    text_for_all_raters = next((h["text"] for h in headers if h["id"] == "all_raters"), None)
+
+    col_width_chars = 10
+    text_for_all_raters = "\n".join(textwrap.wrap(text_for_all_raters, width=col_width_chars))
+    text_for_benchmark = "\n".join(textwrap.wrap(text_for_benchmark, width=col_width_chars))
+
     header_y = ax.get_ylim()[1] + 0.1  # Slightly above the highest y-axis value
-    ax.text(all_raters_x + 0.5, header_y, "All Raters", fontsize=18, va='bottom', ha='center')
-    ax.text(benchmark_x + 0.5, header_y, "Benchmark", fontsize=18, va='bottom', ha='center')
+    ax.text(all_raters_x + 0.5, header_y, text_for_all_raters, fontsize=18, va='bottom', ha='center')
+    ax.text(benchmark_x + 0.5, header_y, text_for_benchmark, fontsize=18, va='bottom', ha='center')
 
     # --------------------------------
     # 🏷️ Add legend at the bottom
@@ -515,45 +525,61 @@ def drawGrids(chart, chartIndex, story) :
         line.add(Line(0, 1, TOTAL_WIDTH, 1, strokeColor=colors.Color(55/255, 90/255, 140/255), strokeWidth=2))
         story.append(line)
 
-def drawBarChart(chart, chartIndex, story) : 
+import matplotlib.pyplot as plt
+import numpy as np
+import textwrap
+from matplotlib.patches import Patch
 
-
+def drawBarChart(chart, chartIndex, story):
     data = chart['data']
+    
     # ----- Prepare Data -----
     competencies = [item["competency"] for item in data]
     scores = [item["score"] for item in data]
     benchmarks = [item["benchmark"] for item in data]
 
     # Colors
-    bar_colors = []
-    for item in data:
-        if item.get("barColor") == "lightblue":
-            bar_colors.append("#AEC6CF")  # light blue
-        else:
-            bar_colors.append("#1F3A5F")  # dark blue
+    bar_colors = [
+        "#AEC6CF" if item.get("barColor") == "lightblue" else "#1F3A5F"
+        for item in data
+    ]
 
     y_pos = np.arange(len(competencies))
 
     # ----- Create Plot -----
-    fig, ax = plt.subplots(figsize=(9, 8))
+    fig, ax = plt.subplots(figsize=(11, 9))
 
     bars = ax.barh(y_pos, scores, color=bar_colors, edgecolor='none')
-
-    # Add benchmark markers
     ax.scatter(benchmarks, y_pos, marker='D', color='darkorange', s=80, label='Benchmark')
 
-    # X-axis
     ax.set_xlim(1, 5)
     ax.set_xticks(range(1, 6))
+
+    # ----- Header Labels -----
+    headers = chart['headers']
+    text_for_benchmark = next((h["text"] for h in headers if h["id"] == "benchmark"), "")
+    text_for_average_raters = next((h["text"] for h in headers if h["id"] == "all_raters"), "")
+
+    # Wrap header text
+    col_width_chars = 10
+    text_for_average_raters = "\n".join(textwrap.wrap(text_for_average_raters, width=col_width_chars))
+    text_for_benchmark = "\n".join(textwrap.wrap(text_for_benchmark, width=col_width_chars))
+
+    # Centered X positions for headers and values
+    avg_x = 5.6
+    benchmark_x = 6.6
+    header_y = -1.9
+
+    # Center-aligned header text
+    ax.text(avg_x, header_y, text_for_average_raters, fontsize=12, ha='center', va='top', linespacing=1.4)
+    ax.text(benchmark_x, header_y, text_for_benchmark, fontsize=12, ha='center', va='top')
 
     # ----- X-axis labels on TOP -----
     ax.xaxis.set_ticks_position('top')
     ax.xaxis.set_label_position('top')
-
-    # Adjust tick appearance
     ax.tick_params(axis='x', which='both', direction='out', length=5, width=1.5, top=True, bottom=False)
 
-    ax.invert_yaxis()  # Highest score on top
+    ax.invert_yaxis()
 
     # Remove plot borders except top spine
     for spine in ['bottom', 'left', 'right']:
@@ -561,53 +587,29 @@ def drawBarChart(chart, chartIndex, story) :
     ax.spines['top'].set_visible(True)
     ax.spines['top'].set_linewidth(1.5)
 
-    # Remove Y ticks
-    ax.set_yticks(y_pos)  # We still need y-ticks to align labels
+    # Remove Y ticks and labels
+    ax.set_yticks(y_pos)
     ax.set_yticklabels(competencies, fontsize=12, weight='bold')
-    ax.tick_params(axis='y', length=0)  # Removes tick lines
-    ax.tick_params(axis='y', which='both', left=False)  # No ticks at all
+    ax.tick_params(axis='y', length=0, which='both', left=False)
 
-    # Grid lines
-    # ax.xaxis.grid(True, linestyle='--', which='major', color='grey', alpha=0.5)
-
-    # Score and benchmark values at the right
+    # Score and benchmark values — center aligned
     for i, (score, benchmark) in enumerate(zip(scores, benchmarks)):
-        ax.text(5.05, i, f"{score:.1f}", va='center', ha='left', fontsize=12)
-        ax.text(5.3, i, f"{benchmark:.1f}", va='center', ha='left', fontsize=12)
-
-    # ----- Legend -----
-    from matplotlib.patches import Patch
-
-    legend_elements = [
-        Patch(facecolor="#1F3A5F", label='Competencies'),
-        Patch(facecolor="#AEC6CF", label='Motivational/Personal'),
-        plt.Line2D([0], [0], marker='D', color='w', label='Benchmark',
-                markerfacecolor='darkorange', markersize=10)
-    ]
-    # fig.legend(handles=legend_elements, loc='lower center', bbox_to_anchor=(0.5, -0.05), ncol=3, labelspacing=1.5, frameon=False, handletextpad=2)
-    # plt.subplots_adjust(bottom=0.2)
+        ax.text(avg_x, i, f"{score:.1f}", va='center', ha='center', fontsize=12)
+        ax.text(benchmark_x, i, f"{benchmark:.1f}", va='center', ha='center', fontsize=12)
 
     # ----- Custom Legend -----
-    legend_y = -0.08  # Adjust as needed
-    spacing = 0.3  # Horizontal spacing between legend items
+    legend_y = -0.08
+    ax.plot([0.03, 0.17], [legend_y, legend_y], color="#1F3A5F", lw=12, transform=ax.transAxes, clip_on=False)
+    ax.text(0.1, legend_y - 0.03, "Competencies", ha='center', va='top', fontsize=11, transform=ax.transAxes)
 
-    # First item - Competencies
-    ax.scatter(0.2, legend_y, marker='s', s=200, color="#1F3A5F", transform=ax.transAxes, clip_on=False)
-    ax.text(0.2, legend_y - 0.05, "Competencies", ha='center', va='top', fontsize=11, transform=ax.transAxes)
+    ax.plot([0.40, 0.60], [legend_y, legend_y], color="#AEC6CF", lw=12, transform=ax.transAxes, clip_on=False)
+    ax.text(0.5, legend_y - 0.03, "Motivational/Personal", ha='center', va='top', fontsize=11, transform=ax.transAxes)
 
-    # Second item - Motivational/Personal
-    ax.scatter(0.5, legend_y, marker='s', s=200, color="#AEC6CF", transform=ax.transAxes, clip_on=False)
-    ax.text(0.5, legend_y - 0.05, "Motivational/Personal", ha='center', va='top', fontsize=11, transform=ax.transAxes)
-
-    # Third item - Benchmark
-    ax.scatter(0.8, legend_y, marker='D', s=80, color="darkorange", transform=ax.transAxes, clip_on=False)
-    ax.text(0.8, legend_y - 0.05, "Benchmark", ha='center', va='top', fontsize=11, transform=ax.transAxes)
+    ax.scatter(0.9, legend_y, marker='D', s=80, color="darkorange", transform=ax.transAxes, clip_on=False)
+    ax.text(0.9, legend_y - 0.03, "Benchmark", ha='center', va='top', fontsize=11, transform=ax.transAxes)
 
     plt.tight_layout(rect=[0, 0.15, 1, 1])
 
-    # plt.savefig("score_summary_chart.png", dpi=300, bbox_inches='tight')
-    # plt.show()
-    # plt.tight_layout()
     chart_path = "reports/bar-chart.png"
     plt.savefig(chart_path, dpi=300, bbox_inches='tight')
     plt.close()
