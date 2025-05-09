@@ -1,0 +1,12 @@
+# Ignore all files in reports and assets
+reports/**/*
+assets/**/*
+
+# But don't ignore the directories themselves
+!reports/
+!assets/
+
+
+*.pdf
+__pycache__/
+*.png
