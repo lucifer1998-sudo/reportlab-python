@@ -15,7 +15,7 @@ with open("data/sample.json") as f:
 
 # PDF settings
 doc = SimpleDocTemplate(
-    "reports/sample_platypus.pdf",
+    f"reports/{data['title']}.pdf",
     pagesize=A4,
     topMargin=30,
     bottomMargin=30,
@@ -129,4 +129,5 @@ for section in data['sections']:
     story.append(PageBreak())
 
 # Generate PDF
-doc.build(story)
+# doc.build(story)
+doc.build(story, onFirstPage=helpers.set_pdf_metadata_factory(data))

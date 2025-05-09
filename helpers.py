@@ -619,3 +619,8 @@ def drawBarChart(chart, chartIndex, story):
     plt.savefig(chart_path, dpi=300, bbox_inches='tight')
     plt.close()
     return chart_path
+
+def set_pdf_metadata_factory(data):
+    def set_pdf_metadata(canvas, doc):
+        canvas.setTitle(data['title'])
+    return set_pdf_metadata
